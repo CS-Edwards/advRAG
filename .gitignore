@@ -1,6 +1,8 @@
 # Private Info 
 .env
 
+# myenv/ dir
+myenv/
 
 # Project Notes
 notes.md
