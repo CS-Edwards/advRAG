@@ -5,4 +5,7 @@
 myenv/
 
 # Project Notes
-notes.md
+notes.
+
+# Pycache
+__pycache__/
