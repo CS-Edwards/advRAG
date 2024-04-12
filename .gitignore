@@ -9,3 +9,6 @@ notes.
 
 # Pycache
 __pycache__/
+
+#draft notebooks
+llm_to_kg.ipynb
