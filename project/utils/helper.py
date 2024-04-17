@@ -2,8 +2,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from typing import List,Dict, Any
 
 
-#
-# @TODO change
+
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size = 500, #changed from 2000
     chunk_overlap  = 200,
@@ -63,16 +62,17 @@ def split_text_from_node(text: str, key: str) -> List[Dict[str, Any]]:
 
 def chunk_doc(standard: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Processes top-level items from the standard dictionary.
+    Processes text items from the standard dictionary and splits them into chunks.
 
     Args:
-        standard (Dict[str, Any]): The dictionary containing top-level items.
+        standard (Dict[str, Any]): The dictionary containing text items.
 
     Returns:
         Dict[str, Any]: A dictionary where keys are top-level item keys ('Standard_formal',
             'Definitions', 'Basis_for_judgement', 'Supporting_docs'), and values are lists of
             dictionaries representing chunks with metadata for each item.
     """
+
     chunk_dict = {}
 
     for key in ['Standard_formal', 'Definitions', 'Basis_for_judgement', 'Supporting_docs']:
@@ -84,3 +84,22 @@ def chunk_doc(standard: Dict[str, Any]) -> Dict[str, Any]:
         chunk_dict[key] = dict_val
 
     return chunk_dict
+
+
+import json
+import pandas as pd
+
+def write_chunks_to_df(chunks):
+    chunk_data = []
+    for chunk_info in chunks:
+        chunk = chunk_info['c']
+        chunk_entry = {
+            'text': chunk['text'],
+            'nodeType': chunk['nodeType'],
+            'UUID': chunk['UUID'],
+        }
+        chunk_data.append(chunk_entry)
+
+    # with open(file_path, 'w') as json_file:
+    #     json.dump(chunk_data, json)
+    return pd.DataFrame(chunk_data)

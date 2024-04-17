@@ -168,7 +168,8 @@ YOU MUST ONLY RETURN AN INTEGER NO OTHER ADDITIONAL CONTEXT INFORMATION. Failure
 
 def classify_text(text_input_full, system_prompt = system_prompt):
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo-16k")
+    #llm = ChatOpenAI(model="gpt-3.5-turbo-16k")
+    llm = ChatOpenAI(model="gpt-4-turbo-preview")
     text_input = text_summarization(text_input_full)
     result = llm.invoke(system_prompt)
     content = result.content
