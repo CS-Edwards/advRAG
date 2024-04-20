@@ -22,7 +22,7 @@ def key_to_node_label(key: str) -> str:
         str: The corresponding node label if the key is found in the mapping, otherwise an empty string.
     """
     key_node_map: Dict[str, str] = {
-        'Standard_formal': 'STANDARD',
+        'Standard_formal': 'FORMAL',
         'Definitions': 'DEFINITIONS',
         'Basis_for_judgement': 'BASIS',
         'Supporting_docs': 'DOCUMENTATION'
