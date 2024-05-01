@@ -1,16 +1,41 @@
-## Advanced Retrieval Augmented Generation: Hybrid Retrieval Pipeline with LLM-Augmented Knowledge Graphs and Vector Database for Accreditation Reporting Assistance
+## Hybrid Context Retrieval Augmented Generation Pipeline: LLM-Augmented Knowledge Graphs and Vector Database for Accreditation Reporting Assistance
 
 ### Abstract
-We implement an advanced retrieval augmented generation pipeline with both a vector database and knowledge graph as the knowledge source used to ground responses to input queries. There are multiple knowledge graphs containing data from two distinct sources relevant to the use case. To develop our knowledge graphs we utilized both a manual construction process as well as an ‘LLM Augmented Knowledge Graph’ approach. The pipeline implements query expansion and query transformation optimization techniques through use of Open AI’s function calling for ‘multi-query’ and ‘subquery’ generation tasks. Grounding contexts are retrieved from both knowledge graph and vector index, and passed into the generator resulting in the response to the original input query. We evaluated the pipeline using the RAGAs framework and observed stable performance on answer relevancy and answer correctness metric. The pipeline is applied the use case of accreditation reporting in higher education.
+In higher education, accreditation is a quality assurance process, where an institution demonstrates a commitment to delivering high quality programs and services to their students. For business schools nationally and internationally the Association to Advance Collegiate Schools of Business (AACSB) accreditation is the gold standard. For a business school to receive and subsequently maintain accreditation, the school must undertake a rigorous, time consuming reporting and peer review process, to demonstrate alignment with the AACSB Standards. For this project we create a hybrid context retrieval augmented generation pipeline that can assist in the documentation alignment and reporting process necessary for accreditation. We implement both  a vector database and knowledge graph, as knowledge stores containing both institutional data and AACSB Standard data. The output of the pipeline can be used by institution stakeholders to build their accreditation report, dually grounded by the context from the knowledge stores. To develop our knowledge graphs we utilized both a manual construction process as well as an ‘LLM Augmented Knowledge Graph’ approach. We evaluated the pipeline using the RAGAs framework and observed optimal performance on answer relevancy and answer correctness metrics. 
 
 
 
 
 
-![Full RAG Pipeline](diagrams/adv_rag_pipeline_cedwards.png)
+![Full RAG Pipeline](diagrams/updated_adv_rag_pipeline_cedwards.png)
 
 
+### System Flow
+System Flow Steps:
 
+  1. User Query: User initiates natural language query.
+
+    ```q0: “Which learning objectives did out undergraduate program evaluate”```
+
+
+  2. Query Optimization: Query is routed and expanded to multiple queries.
+```
+    q1: “What are the learning objectives that our undergraduate program evaluated?”
+    q2: “What were the learning objectives assessed in our undergraduate program?”
+    q3: “Which learning objectives were evaluated in our undergraduate program?”
+```
+
+  3. Query Embedding: Queries{q1, q2, q3} are passed to the text embedding model.
+
+  4. Query Conversion: Original natural language query (q0) is passed into model, and converted to a Cypher query using LangChain’s GraphCypheryQAChain().
+
+  5. Vector Index Context Retrieval: Vector index returns the top k (k=2), embeddings based on cosine similarly to the query embeddings.
+
+  6. Knowledge Graph Context Retrieval: Knowledge graph query returns information based on the Cypher query. 
+
+  7. Generator: Hybrid context from vector index and knowledge graph are passed in the model along with the original query to generate response to the query.
+
+  8. Response Returned: Generated response is returned to the user.
 
 
 
