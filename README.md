@@ -7,6 +7,7 @@ We implement an advanced retrieval augmented generation pipeline with both a vec
 
 
 
+![Full RAG Pipeline](diagrams/adv_rag_pipeline_cedwards.png)
 
 
 
