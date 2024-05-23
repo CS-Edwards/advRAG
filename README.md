@@ -15,7 +15,7 @@ System Flow Steps:
 
   1. User Query: User initiates natural language query.
 
-    ```q0: “Which learning objectives did out undergraduate program evaluate”```
+    ```q0: “Which learning objectives did our undergraduate program evaluate”```
 
 
   2. Query Optimization: Query is routed and expanded to multiple queries.
